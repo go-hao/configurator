@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mysql:8.4.0
+    restart: always
+    ports: # HOST:CONTAINER
+      - 3306:3306
+    volumes: # HOST:CONTAINER
+      - ./db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: sql_db
+      MYSQL_ROOT_PASSWORD: letmein
+      MYSQL_USER: sql
+      MYSQL_PASSWORD: letmein
