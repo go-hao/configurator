@@ -1,0 +1,39 @@
+app:
+  mode: DEBUG
+  name: app
+  owner: www.example.com
+  secret-key: changeme!
+server:
+  host: ""
+  port: 8000
+  path: ""
+  cors:
+    allow-origins:
+      - '*'
+    allow-methods:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      - HEAD
+      - OPTIONS
+    allow-headers: []
+    credentials: true
+    max-age: 12
+    max-age-unit: hr
+auth:
+  token-signing-alg: HS256
+  token-lifetime-unit: min
+  access-token-lifetime: 10
+  refresh-token-lifetime: 30
+  id-token-lifetime: 10
+  private-key-path: certs/key.pem
+  public-key-path: certs/key.pem.pub
+db:
+  host: 127.0.0.1
+  port: 3306
+  name: sql_db
+  table-prefix: t
+  username: sql
+  password: letmein
