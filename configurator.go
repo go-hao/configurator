@@ -3,6 +3,7 @@ package configurator
 import (
 	"fmt"
 	"os"
+	"path"
 	"reflect"
 	"strings"
 
@@ -34,7 +35,16 @@ func Dump(cfg any, filePath string) error {
 	if err != nil {
 		return err
 	}
-	file, err := os.OpenFile(filePath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
+
+	// create parent directories if not exist
+	rootPath := path.Dir(filePath)
+	if _, err := os.Stat(rootPath); os.IsNotExist(err) {
+		if err := os.MkdirAll(rootPath, os.FileMode(0755)); err != nil {
+			return fmt.Errorf("%w: %s", ErrFailedToDumpConfig, err.Error())
+		}
+	}
+
+	file, err := os.OpenFile(filePath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, os.FileMode(0644))
 	if err != nil {
 		return fmt.Errorf("%w: %s", ErrFailedToDumpConfig, err.Error())
 	}
